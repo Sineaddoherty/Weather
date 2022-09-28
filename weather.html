@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Weather App</title>
+    <script src="https://cdn.jsdelivr.net/npm/xmltojson@1.3.5/lib/xmlToJSON.min.js"></script>  </head>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+  <body>
+    <h1> Find  the weather in your local area!</h1>
+
+    <table id="demo">
+    </table>
+    
+    <input type="text" name="city" id="city">
+
+    <button type="button" onclick="loadData('http://api.openweathermap.org/data/2.5/weather?q=')">Search</button>
+    <script>
+      async function loadData(url) {
+        var uInput= document.getElementById('city').value
+        var api=url+uInput+"&appid=15f5855d9cdb46f2ccad60484809b6ce";
+        var table="<tr><th>Area</th> <th>Weather</th> <th>feels like</th> <th>Temperature</th></tr>";
+        var response = await fetch(api)
+        var data = await response.json()
+        console.log(api)
+        
+          table += "<tr><td>" 
+            +data.name+
+            "</td><td>"+
+              data.weather[0].description +
+              "</td><td>" +
+                (((data.main.feels_like -273.15).toFixed(2))+"Celcuis") +
+                "</td><td>" +
+                (((data.main.temp -273.15).toFixed(2))+"Celcuis") +
+                "</td><tr>" ;
+
+                  document.getElementById("demo").innerHTML = table;
+              }
+      
+   
+      
+
+
+    </script>
+  </body>
+</html>
+
+
+
+
+
+
+   
